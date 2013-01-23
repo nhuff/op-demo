@@ -1,0 +1,25 @@
+---
+s_mysql_server::databases:
+  test1:
+    ensure: 'present'
+    charset: 'utf8'
+  test2:
+    ensure: 'present'
+    charset: 'latin1'
+s_mysql_server::users:
+  'app1@localhost':
+    password: 'app1pass'
+  'app2@localhost':
+    password: 'app2pass'
+s_mysql_server::grants:
+  'app1@localhost/test1':
+    privileges: 
+      - all
+s_mysql_server::grants:
+  'app2@localhost/test2':
+    privileges: 
+      - select_priv
+
+apache::sendfile: 'on'
+apache::serveradmin: 'nrhuff@umn.edu'
+
